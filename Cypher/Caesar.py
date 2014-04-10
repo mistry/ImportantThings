@@ -1,9 +1,6 @@
 import string
 def main():
-
     n = GetWeekNumber()/7
-
-
     cipher_maps = GetMap(n)
     text = raw_input("Enter text to be translated ")
     text = string.lower(text)
