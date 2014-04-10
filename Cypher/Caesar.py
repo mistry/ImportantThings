@@ -1,9 +1,9 @@
 import string
 def main():
-    try:
-        n = int(raw_input("Enter number 0-25 "))
-    except ValueError:
-        print "That number sucks"
+
+    n = GetWeekNumber()/7
+
+
     cipher_maps = GetMap(n)
     text = raw_input("Enter text to be translated ")
     text = string.lower(text)
@@ -27,5 +27,14 @@ def GetMap(n):
         forward_map[chr(97+i)] = chr(97+((i+n)%26))
         backward_map[chr(97+i)]= chr(97+((i-n)%26))
     return [forward_map,backward_map]
+def GetWeekNumber():
+    import datetime
+    desiredWeekday = 6 #Sunday
+    today = datetime.date.today()
+    FoY = today.replace(month =1, day =1)#FoY = First of Year
+    FirstSunday = FoY.replace(day = (desiredWeekday + 1 - FoY.weekday()))#The 1 is there to make sure the day isn't set to 0
+    deltatime = today - FirstSunday
+    return (deltatime.days)
 if __name__ == '__main__':
     main()
+
