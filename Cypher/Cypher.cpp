@@ -58,7 +58,7 @@ string GetInput() //Gets the input string, without showing characters
 int main()
 {
     int week = GetWeek();
-    numLet_Alpha = 26;
+    int numLet_Alpha = 26;
     string words = GetInput();
     if(decode)
     {
