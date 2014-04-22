@@ -1,17 +1,17 @@
 /* Cesarian Cypher code
- *
- *
- * 
+ * Khilesh Mistry
+ * April 2014
+ *  Cesarian Cypher code with interesting user functionality 
  */
-#include <stdio.h>
-#include <time.h>
-#include <iostream>
-#include <string>
-#include <cmath>
+#include <stdio.h> // std stuff
+#include <time.h> // for week number
+#include <iostream> // cin/cout formalism
+#include <string> // for being silly
+#include <cmath> //its matematical 
 
 using namespace std;
-bool decode = false;
-int GetWeek()
+bool decode = false; // need global here to ensure decoding/encoding capabilites
+int GetWeek() // function to get the week number
 {
     int weeknum = 0;
     
@@ -22,11 +22,11 @@ int GetWeek()
     time(&gettime);
     timeinfo = localtime (&gettime);
     
-    strftime(buffer,3,"%U", timeinfo);
+    strftime(buffer,3,"%U", timeinfo); //%U gets week number with first sunday of year as begining of week 1
     weeknum = (buffer[0] - '0')*10 + (buffer[1] - '0');
     return weeknum;
 }
-string GetInput()
+string GetInput() //Gets the input string, without showing characters
 {
     string in1, in2;
     cout << "Enter Encode or Decode mode: (e/d) " << endl;
@@ -58,8 +58,13 @@ string GetInput()
 int main()
 {
     int week = GetWeek();
+    numLet_Alpha = 26;
     string words = GetInput();
-    if(decode) week = 26-week;
+    if(decode)
+    {
+        week = abs(numLet_Alpha-week);  
+        week = week%numLet_Alpha;
+    }
     
     int strLength = (int)words.length();
     int temp =0; 
@@ -70,16 +75,16 @@ int main()
         {
 
             temp = (int)words[i];
-            if(islower(words[i]) && (temp-97+week > 25))
+            if(islower(words[i]) && (temp-97+week > (numLet_Alpha-1))) // 97 = char 'a' 
             {
-                temp = abs(26-week);
-                temp = temp%26;
+                temp = abs(numLet_Alpha-week);
+                temp = temp%numLet_Alpha;
                 words[i] = words[i]-temp;
             }
-            else if(isupper(words[i]) && (temp-65+week > 25))
+            else if(isupper(words[i]) && (temp-65+week > (numLet_Alpha-1))) //65 = char 'A'
             {
-                temp = abs(26-week);
-                temp = temp%26;
+                temp = abs(numLet_Alpha-week);
+                temp = temp%numLet_Alpha;
                 words[i] = words[i] - temp;
             }
             else
